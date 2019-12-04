@@ -41,8 +41,10 @@ ON a.`tid`=c.`tid` WHERE a.`status`=0
    insert into t_goods set  gname=#{gname},datea=#{datea},id=#{id},tid=#{tid},price=#{price}
   </insert>
   
-  <select id="toUp" resultMap="goodMap">
-    select * from t_goods where gid=#{gid}
+  <select id="toUp" resultType="com.tzy.domain.Goods">
+  SELECT * FROM t_goods a LEFT JOIN t_goodsort b
+  ON a.`id` =b.`id` LEFT JOIN t_type c
+  ON a.`tid`=c.`tid` WHERE gid=#{gid}
   </select>
   
   <update id="update">

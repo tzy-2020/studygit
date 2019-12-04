@@ -59,7 +59,7 @@ $(function() {
     <select name="id">
      <option value="">--请选择--</option>
      <c:forEach items="${glist}" var="g">
-      <option value="${g.id}">${g.name}</option>
+      <option value="${g.id}" ${goods.id==g.id?'selected':''}>${g.name}</option>
      </c:forEach>
     </select>
    </td>
@@ -70,7 +70,7 @@ $(function() {
      <select name="tid">
      <option value="">--请选择--</option>
      <c:forEach items="${typelist}" var="t">
-     <option value="${t.tid}">${t.tname}</option>
+     <option value="${t.tid}" ${goods.tid==t.tid?'selected':''}>${t.tname}</option>
      </c:forEach>
     </select> 
    </td>
