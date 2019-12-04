@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tzy.mapper.GoodsMapper">
+  <resultMap type="com.tzy.domain.Goods" id="goodMap">
+   <id column="gid" property="gid"/>
+   <result column="gname" property="gname"/>
+   <result column="datea" property="datea"/>
+   <result column="price" property="price"/>
+   <result column="status" property="status"/>
+   <association property="goodsort" javaType="com.tzy.domain.Goodsort">
+     <id column="id" property="id"/>
+     <result column="name" property="name"/>
+   </association>
+   
+   <association property="type" javaType="com.tzy.domain.Type">
+     <id column="tid" property="tid"/>
+     <result column="tname" property="tname"/>
+   </association>
+  </resultMap>
+  
+  <select id="list" resultMap="goodMap">
+SELECT * FROM t_goods a LEFT JOIN t_goodsort b
+ON a.`id` =b.`id` LEFT JOIN t_type c
+ON a.`tid`=c.`tid` WHERE a.`status`=0
+  </select>
+  
+  <update id="toUpdate">
+  UPDATE t_goods SET STATUS=1 WHERE gid =#{gid}
+  </update>
+  
+  <select id="toGetGlist" resultType="com.tzy.domain.Goodsort">
+   select * from t_goodsort
+  </select>
+  <select id="toTypeGlist" resultType="com.tzy.domain.Type">
+  select * from t_type
+  </select>  
+  
+  <insert id="add">
+   insert into t_goods set  gname=#{gname},datea=#{datea},id=#{id},tid=#{tid},price=#{price}
+  </insert>
+  
+  <select id="toUp" resultMap="goodMap">
+    select * from t_goods where gid=#{gid}
+  </select>
+  
+  <update id="update">
+   update t_goods set  gname=#{gname},datea=#{datea},id=#{id},tid=#{tid},price=#{price} where gid=#{gid}
+  </update>
+  
+</mapper>
